@@ -1,0 +1,16 @@
+{
+  "name": "multi-step-form",
+  "version": "1.0.0",
+  "description": "Multi-step form",
+  "main": "scripts/main.js",
+  "scripts": {
+    "watch": "npx sass --watch style/scss/main.scss:style/css/main.css --style compressed",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Álvaro",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.71.1"
+  }
+}

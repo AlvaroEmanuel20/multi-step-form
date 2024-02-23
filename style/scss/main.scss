@@ -1,0 +1,88 @@
+@use 'colors' as c;
+@use 'typography';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+body {
+  font-family: ubuntu, sans-serif;
+  background-color: c.$bg;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab, #nextBtn, #backBtn, #confirmBtn {
+  display: none;
+}
+
+main.container {
+  background-color: c.$white;
+  display: grid;
+  grid-template-columns: 274px 1fr;
+  gap: 100px;
+  padding: 15px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+
+/*SIDEBAR*/
+.sidebar {
+  background: url('/assets/images/bg-sidebar-desktop.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+
+  ol {
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .step-indicator {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        border: 1px solid c.$white;
+        color: c.$white;
+        font-weight: bold;
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        p {
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}
+/*SIDEBAR*/
