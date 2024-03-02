@@ -1,5 +1,14 @@
-@use 'colors' as c;
-@use 'typography';
+@use "colors" as c;
+@use "typography" as t;
+@use "mixins" as m;
+
+@use "components/button";
+@use "components/sidebar";
+@use "components/input-group";
+@use "components/switch";
+@use "components/title";
+@use "components/plan-card";
+@use "components/addon-card";
 
 * {
   margin: 0;
@@ -7,20 +16,21 @@
   box-sizing: border-box;
 }
 
-button {
-  cursor: pointer;
-}
-
 body {
   font-family: ubuntu, sans-serif;
   background-color: c.$bg;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include m.flex(center, center);
+
+  @media (max-width: 850px) {
+    display: block;
+  }
 }
 
-.tab, #nextBtn, #backBtn, #confirmBtn {
+.tab,
+#nextBtn,
+#backBtn,
+#confirmBtn {
   display: none;
 }
 
@@ -28,61 +38,237 @@ main.container {
   background-color: c.$white;
   display: grid;
   grid-template-columns: 274px 1fr;
-  gap: 100px;
-  padding: 15px;
-  border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  -ms-border-radius: 15px;
-  -o-border-radius: 15px;
+  padding: 16px 0 16px 16px;
+  width: 948px;
+  @include m.rounded(15px);
+
+  .tabs-actions {
+    display: none;
+  }
+
+  @media (max-width: 1000px) {
+    margin: 0 16px;
+    width: 100%;
+  }
+
+  @media (max-width: 850px) {
+    background-color: transparent;
+    grid-template-columns: 1fr;
+    padding: 0;
+    margin: 0;
+
+    .tabs-actions {
+      @include m.flex(space-between, center, 20px);
+      margin: 40px 0 20px 0;
+      padding: 0 16px;
+    }
+  }
 }
 
-/*SIDEBAR*/
-.sidebar {
-  background: url('/assets/images/bg-sidebar-desktop.svg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+/*FORM*/
+form#form {
+  padding: 40px 100px 16px 100px;
+  @include m.flex(space-between, $dir: column);
 
-  ol {
-    list-style: none;
+  @media (max-width: 1000px) {
+    padding: 40px 40px 16px 40px;
+  }
 
-    li {
-      display: flex;
-      align-items: center;
-      gap: 15px;
+  @media (max-width: 850px) {
+    background-color: c.$white;
+    padding: 40px 25px;
+    @include m.rounded(15px);
+    margin: -64px 16px 0 16px;
+  }
 
-      .step-indicator {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
-        border: 1px solid c.$white;
-        color: c.$white;
-        font-weight: bold;
-        font-size: 14px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+  .tabs-actions {
+    @include m.flex(space-between, center, 20px);
+
+    @media (max-width: 850px) {
+      display: none;
+    }
+  }
+
+  .tab {
+    .personal-form {
+      @include m.flex($dir: column, $gap: 20px);
+    }
+
+    &:nth-child(2) {
+      .plans {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+
+        @media (max-width: 570px) {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
       }
+    }
 
+    &:nth-child(3) {
+      .addons {
+        @include m.flex($dir: column, $gap: 20px);
+      }
+    }
+
+    &:nth-child(4) {
+      .total {
+        @include m.flex($dir: column, $gap: 30px);
+
+        @media (max-width: 500px) {
+          gap: 20px;
+        }
+
+        &-details {
+          background-color: c.$alabaster;
+          padding: 20px 25px;
+          @include m.rounded(8px);
+
+          @media (max-width: 500px) {
+            padding: 20px 15px;
+          }
+
+          .total-plan {
+            @include m.flex(space-between, center, 10px);
+
+            div {
+              @include m.flex($dir: column, $gap: 6px);
+
+              h2 {
+                color: c.$marine-blue;
+                font-size: 16px;
+              }
+
+              p {
+                font-size: 15px;
+                color: c.$cool-gray;
+                text-decoration: underline;
+                cursor: pointer;
+
+                &:hover {
+                  color: c.$purplish-blue;
+                  transition-duration: 300ms;
+                }
+              }
+            }
+
+            span {
+              font-weight: bold;
+              color: c.$marine-blue;
+            }
+
+            @media (max-width: 500px) {
+              div {
+                h2 {
+                  font-size: 15px;
+                }
+              }
+            }
+          }
+
+          hr {
+            border-top: 1px solid c.$magnolia;
+            margin: 20px 0;
+          }
+
+          ul.total-addons {
+            list-style: none;
+            @include m.flex($dir: column, $gap: 20px);
+
+            @media (max-width: 500px) {
+              gap: 15px;
+            }
+
+            li {
+              &:nth-child(3) {
+                display: none;
+              }
+
+              div {
+                @include m.flex(space-between, center, 10px);
+
+                p,
+                span {
+                  font-size: 15px;
+                }
+
+                p {
+                  color: c.$cool-gray;
+                }
+
+                span {
+                  color: c.$marine-blue;
+                }
+              }
+            }
+          }
+        }
+
+        &-price {
+          @include m.flex(space-between, center, 10px);
+          padding: 0 25px;
+
+          p {
+            color: c.$cool-gray;
+            font-size: 15px;
+            font-weight: 500;
+          }
+
+          span {
+            color: c.$purplish-blue;
+            font-weight: bold;
+            font-size: 20px;
+          }
+
+          @media (max-width: 500px) {
+            padding: 0 15px;
+
+            p {
+              font-size: 14px;
+            }
+
+            span {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+
+    &:nth-child(5) {
       div {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+        @include m.flex(center, center, 0, column);
+        text-align: center;
+
+        h1 {
+          margin: 30px 0 20px 0;
+          color: c.$marine-blue;
+        }
 
         p {
-          text-transform: uppercase;
+          color: c.$cool-gray;
+          line-height: 1.5rem;
+        }
+      }
+
+      @media (max-width: 500px) {
+        padding: 30px 0;
+
+        img {
+          width: 70px;
+        }
+
+        h1 {
+          font-size: 25px;
+        }
+
+        p {
+          font-size: 15px;
         }
       }
     }
   }
 }
-/*SIDEBAR*/
+/*FORM*/
