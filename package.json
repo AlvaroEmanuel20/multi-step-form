@@ -4,8 +4,8 @@
   "description": "Multi-step form",
   "main": "scripts/main.js",
   "scripts": {
-    "compile": "npx sass scss/main.scss:css/main.css --style compressed",
-    "watch": "npx sass --watch /scss/main.scss:/css/main.css --style compressed",
+    "compile": "npx sass sass/main.scss:css/main.css --style compressed",
+    "watch": "npx sass --watch sass/main.scss:css/main.css --style compressed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
